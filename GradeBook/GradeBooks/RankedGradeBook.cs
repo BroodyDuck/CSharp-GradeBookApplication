@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using GradeBook.Enums;
 
@@ -39,7 +40,31 @@ namespace GradeBook.GradeBooks
 
         public override char GetLetterGrade(double averageGrade)
         {
-            return base.GetLetterGrade(averageGrade);
+            var min = Students.OrderBy(s => s.AverageGrade).FirstOrDefault().AverageGrade;
+            var max = Students.OrderByDescending(s => s.AverageGrade).FirstOrDefault().AverageGrade;
+            var perc = (averageGrade - min) / ((max - min) / 100);
+            
+            if (Students.Count < 5)
+            {
+                throw new InvalidOperationException();
+            }
+            if (perc > 80)
+            {
+                return 'A';
+            }
+            else if (perc < 80 && perc > 60)
+            {
+                return 'B';
+            }
+            else if (perc < 60 && perc > 40)
+            {
+                return 'C';
+            }
+            else if (perc < 40 && perc > 20)
+            {
+                return 'D';
+            }
+            return 'F';
         }
 
         public override string ToString()
