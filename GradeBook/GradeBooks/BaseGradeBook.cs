@@ -123,10 +123,6 @@ namespace GradeBook.GradeBooks
                 case 'D':
                     return 1 + bonus;
             }
-            if (IsWeighted && (studentType == StudentType.Honors || studentType == StudentType.DualEnrolled))
-            {
-
-            }
             return 0;
         }
 
