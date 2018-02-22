@@ -33,9 +33,9 @@ namespace GradeBook.UserInterfaces
         public static void CreateCommand(string command)
         {
             var parts = command.Split(' ');
-            if (parts.Length != 3)
+            if (parts.Length != 4)
             {
-                Console.WriteLine("Command not valid, Create requires a name and type of gradebook.");
+                Console.WriteLine("Command not valid, Create requires a name, type of gradebook, if it's weighted (true / false).");
                 return;
             }
             var name = parts[1];
@@ -43,11 +43,11 @@ namespace GradeBook.UserInterfaces
             BaseGradeBook gradeBook;
             if (parts[2].ToLower() == "standard")
             {
-                gradeBook = new StandardGradeBook(name);
+                gradeBook = new StandardGradeBook(name, bool.Parse(parts[3]));
             }
             else if (parts[2].ToLower() == "ranked")
             {
-                gradeBook = new RankedGradeBook(name);
+                gradeBook = new RankedGradeBook(name, bool.Parse(parts[3]));
             }
             else
             {
